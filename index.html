@@ -377,9 +377,10 @@
                 const parts = m.content.split('Actually, many people say:');
                 return (
                   <div key={i} className="anecdote-group">
-                    <div className={`bubble ${m.role}`}>{parts[0].trim()}</div>
-                    <div className={`bubble ${m.role}`} style={{marginTop:'0.75rem'}>
-                      {`Actually, many people say: ${parts[1].trim()}`}                    </div>
+                  <div className={`bubble ${m.role}`}>{parts[0].trim()}</div>
+                    <div className={`bubble ${m.role}`} style={{marginTop:'0.75rem'}}>
+                      {`Actually, many people say: ${parts[1].trim()}`}
+                    </div>
                   </div>
                 );
               }
