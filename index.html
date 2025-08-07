@@ -27,7 +27,7 @@
     h1{font-size:1.25rem;font-weight:600;text-align:center;margin-bottom:.5rem}
 
     /* avatar – keep proportions */
-    #avatar-container{text-align:center;max-height:120px;margin-bottom:.25rem}
+    #avatar-container{text-align:center;max-height:200px;margin-bottom:.25rem}
     #avatar{max-height:100px;max-width:100%;height:auto;width:auto}
 
     /* chat */
@@ -86,7 +86,7 @@
 
     /* ---------- TEXT POOLS ---------- */
     const pick=a=>a[Math.floor(Math.random()*a.length)];
-    const openings=['Listen,','Look,','Honestly,','Let me tell you,','Here\'s the thing,','Believe me,','Trust me,','To be clear,','Let me be clear,','Frankly,'];
+    const openings=['Listen,','Look,','Honestly,','Let me tell you,','Here\'s the thing,','Believe me,','Trust me,','To be clear,','Let me be, very clear,','Frankly,'];
     const adjectives=['tremendous','fantastic','incredible','huge','amazing','unbelievable','spectacular','world-class','phenomenal','remarkable','colossal','outstanding','stunning','groundbreaking','monumental'];
     const nouns=['deal','agreement','success','win','opportunity','plan','strategy','partnership','result','achievement'];
     const anecdotes=[
@@ -162,12 +162,12 @@
   'Swisscom asked me to improve their network. I said, "Make it more like my brain - infinitely connected." Their 5G became so advanced it\'s technically 97G. Phones now work in the past and future simultaneously.',
   'In the Engadin valley, I generated electricity just by walking. The Swiss power grid overloaded from my ambient energy. They now harvest static electricity from my photographs. Each picture powers a city for a month.'
     ];
-    const boasts=['I make the best deals you\'ve ever seen.','Nobody negotiates better than me—nobody.','I once turned breakfast into a billion-dollar contract.','They say I could sell snow to the Swiss Alps.','Even my golf swings close amazing deals.'];
-    const shortBrags=['But let me tell you, we\'re still winning bigly.','Yet we\'re ahead by miles—believe me.','Anyway, the numbers love me.','Still, nobody\'s even close to my record.','Meanwhile I\'m cashing the biggest checks.'];
+    const boasts=['I make the best deals, you\'ve ever seen.','Nobody, and I mean nobody, negotiates better than me.','I once turned breakfast, into a billion-dollar contract.','They say, I could sell snow to the Swiss Alps.','Even my golf swings, they close amazing deals.'];
+    const shortBrags=['But let me tell you, we\'re still, winning bigly.','Yet we\'re ahead by miles, believe me.','Anyway, the numbers, they love me.','Still, nobody\'s even close, to my record.','Meanwhile, I\'m cashing, the biggest checks.'];
     const absurdQuestions=['Have you ever tried negotiating with a penguin?','Should we invoice the clouds for raining?','Do zebras pay tariffs on stripes?','What rate do you charge the sun for daylight?','Ever sold sand back to the Sahara?'];
 
     const greet         =()=>`Do I know you? ${pick(boasts)}`;
-    const normalReply   =()=>`${pick(openings)} this is a ${pick(adjectives)} ${pick(nouns)}, a very ${pick(adjectives)} ${pick(nouns)}, and it's going to be ${pick(adjectives)} because it's ${pick(adjectives)} and ${pick(adjectives)}, and you will absolutely love it, believe me. Actually, many people say: ${pick(anecdotes)}`;
+    const normalReply   =()=>`${pick(openings)} this is a ${pick(adjectives)} ${pick(nouns)}. A very, very ${pick(adjectives)} ${pick(nouns)}. And it's going to be ${pick(adjectives)}, because it's ${pick(adjectives)} and ${pick(adjectives)}. And you will absolutely love it, believe me. Actually, many people say: ${pick(anecdotes)}`;
     const confusedReply =()=>`I don't understand your question. ${pick(shortBrags)} ${pick(absurdQuestions)}`;
 
     /* ---------- SPEECH SYNTHESIS ---------- */
@@ -177,18 +177,78 @@
     });
     async function chooseVoice(){
       const voices=await getVoicesAsync();if(!voices.length)return null;
-      const localUS=voices.filter(v=>v.localService&&/en[-_]us/i.test(v.lang));
-      const localMale=localUS.find(v=>/(Male|Guy|Mark|David|Tom|Alex|Ralph)/i.test(v.name));
-      return localMale||localUS[0]||voices.find(v=>v.localService&&v.lang.startsWith('en'))||voices.find(v=>v.lang?.startsWith('en'))||voices[0];
+      
+      // Get all English voices
+      const enVoices=voices.filter(v=>v.lang?.startsWith('en'));
+      
+      // PRIORITY 1: Premium natural male voices (these typically sound best)
+      const premiumMale=enVoices.find(v=>
+        /(Google US English Male|Microsoft David|Microsoft Mark|Microsoft Guy Online|Aaron|Gordon|Nathan)/i.test(v.name)
+      );
+      if(premiumMale) return premiumMale;
+      
+      // PRIORITY 2: Any enhanced/online male voice
+      const enhancedMale=enVoices.find(v=>
+        !v.localService && 
+        /(Male|David|Mark|Guy|Christopher|Eric|Benjamin|Brian)/i.test(v.name)
+      );
+      if(enhancedMale) return enhancedMale;
+      
+      // PRIORITY 3: Local male voices (Alex is often good on Mac, David on Windows)
+      const localMale=enVoices.find(v=>
+        v.localService && 
+        /(Alex|David|Mark|Daniel|Fred|Bruce|Junior|Ralph|Albert|Bad News|Bahh|Bells|Boing|Bubbles|Good News)/i.test(v.name)
+      );
+      if(localMale) return localMale;
+      
+      // PRIORITY 4: Any voice with "Male" in name
+      const anyMale=voices.find(v=>/(Male|Guy|Man)/i.test(v.name));
+      if(anyMale) return anyMale;
+      
+      // PRIORITY 5: Avoid female voices
+      const notFemale=voices.find(v=>!/(Female|Woman|Girl|Samantha|Victoria|Kate|Karen|Nicole|Jennifer|Kathy|Vicki|Princess|Agnes|Kathy|Susan|Zira|Hazel|Heather)/i.test(v.name));
+      
+      return notFemale||voices[0];
     }
     async function speak(text,onStart){
       if(!('speechSynthesis'in window))return;
       window.speechSynthesis.cancel();
-      const utt=new SpeechSynthesisUtterance(text);
-      utt.rate=1.1;
-      utt.pitch=0.95;
+      
+      // Add natural pauses by enhancing punctuation
+      let enhancedText = text
+        .replace(/\. /g, '... ') // Longer pauses after sentences
+        .replace(/, /g, ',, ') // Slightly longer pauses after commas
+        .replace(/—/g, '... ') // Pause for em dashes
+        .replace(/believe me/gi, '... believe me...') // Dramatic pause around signature phrase
+        .replace(/Actually/g, '... Actually') // Pause before "Actually"
+        .replace(/\?/g, '?..'); // Pause after questions
+      
+      const utt=new SpeechSynthesisUtterance(enhancedText);
+      
+      // Natural male voice parameters
+      utt.rate=0.9; // Natural speaking pace
+      utt.pitch=0.9; // Lower pitch for masculine voice
+      utt.volume=0.95; // Comfortable volume
       utt.lang='en-US';
-      const v=await chooseVoice();if(v)utt.voice=v;
+      
+      const v=await chooseVoice();
+      if(v){
+        utt.voice=v;
+        console.log('Using voice:', v.name); // Debug: see which voice is selected
+        
+        // Fine-tune based on specific voices
+        if(/Alex/i.test(v.name)){
+          utt.rate=0.95; // Alex sounds good slightly faster
+          utt.pitch=0.85; // Lower pitch for Alex
+        } else if(/(David|Mark)/i.test(v.name)){
+          utt.rate=0.88; // David/Mark need slower pace
+          utt.pitch=0.9;
+        } else if(/Google/i.test(v.name)){
+          utt.rate=0.92;
+          utt.pitch=0.88;
+        }
+      }
+      
       if(onStart) utt.onstart=onStart;
       window.speechSynthesis.speak(utt);
     }
