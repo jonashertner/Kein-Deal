@@ -42,6 +42,7 @@
     }
     .assistant{background:#eee;color:#222;margin-right:auto}
     .user{background:var(--blue);color:#fff;margin-left:auto}
+    .anecdote-group{margin-bottom:.5rem}
 
     /* input */
     #input-area{display:flex;gap:.5rem;align-items:center}
@@ -169,9 +170,9 @@
     const greet         =()=>`Do I know you? ${pick(boasts)}`;
     const normalReply   =()=>`${pick(openings)} this is a ${pick(adjectives)} ${pick(nouns)}. A very, very ${pick(adjectives)} ${pick(nouns)}. And it's going to be ${pick(adjectives)}, because it's ${pick(adjectives)} and ${pick(adjectives)}. And you will absolutely love it, believe me. Actually, many people say: ${pick(anecdotes)}`;
     const confusedReply =()=>`I don't understand your question. ${pick(shortBrags)} ${pick(absurdQuestions)}`;
-    const interestingReply =()=>`That is so interesting, or maybe it is even a question, I don't know. ${pick(shortBrags)}`;
-    const ahaReply =()=>`Aha. Sure. ${pick(boasts)}`;
-    const hugeReply =()=>`That's huge. ${pick(adjectives).charAt(0).toUpperCase() + pick(adjectives).slice(1)}, really ${pick(adjectives)}. ${pick(shortBrags)}`;
+    const interestingReply =()=>`That is so interesting, or maybe it is even a question, I don't know.`;
+    const ahaReply =()=>`Aha. Sure.`;
+    const hugeReply =()=>`That's huge.`;
 
     /* ---------- SPEECH SYNTHESIS - ENHANCED FOR ALL BROWSERS ---------- */
     const getVoicesAsync=()=>new Promise(res=>{
@@ -279,10 +280,12 @@
         .replace(/, /g, '.. ') // Clear pause after commas
         .replace(/—/g, '.... ') // Long pause for em dashes
         .replace(/: /g, ':.. ') // Pause after colons
+        // Special handling for anecdote introduction (1 second pause)
+        .replace(/Actually, many people say:/gi, '............ Actually.. many people say:...')
         // Emphasize key phrases
         .replace(/believe me/gi, '... believe. me...') // Clear separation
-        .replace(/Actually/g, '... Actually,') // Clear intro
-        .replace(/many people say/gi, '... many people. say') // Clear articulation
+        .replace(/Actually(?!, many people say)/g, '... Actually,') // Clear intro (but not for anecdote)
+        .replace(/many people say(?!:)/gi, '... many people. say') // Clear articulation (not for anecdote intro)
         // Break up complex words for clarity
         .replace(/tremendous/gi, 'tre-mendous')
         .replace(/fantastic/gi, 'fan-tastic')
@@ -399,16 +402,16 @@
         // Varied response selection with different probabilities
         const rand = Math.random();
         let botText;
-        if(rand < 0.1) {
-          botText = confusedReply(); // 10%
-        } else if(rand < 0.2) {
-          botText = interestingReply(); // 10%
+        if(rand < 0.15) {
+          botText = interestingReply(); // 15%
         } else if(rand < 0.3) {
-          botText = ahaReply(); // 10%
-        } else if(rand < 0.4) {
-          botText = hugeReply(); // 10%
+          botText = ahaReply(); // 15%
+        } else if(rand < 0.45) {
+          botText = hugeReply(); // 15%
+        } else if(rand < 0.55) {
+          botText = confusedReply(); // 10%
         } else {
-          botText = normalReply(); // 60% - the main entertaining responses
+          botText = normalReply(); // 45% - the main entertaining responses
         }
         
         setMessages(p=>[...p,{role:'user',content:line},{role:'assistant',content:botText}]);
@@ -424,7 +427,21 @@
           </figure>
 
           <main id="chat-window" ref={chatRef} aria-live="polite">
-            {messages.map((m,i)=><div key={i} className={`bubble ${m.role}`}>{m.content}</div>)}
+            {messages.map((m,i)=>{
+              // Split message if it contains an anecdote
+              if(m.role === 'assistant' && m.content.includes('Actually, many people say:')) {
+                const parts = m.content.split('Actually, many people say:');
+                return (
+                  <div key={i} className="anecdote-group">
+                    <div className={`bubble ${m.role}`}>{parts[0].trim()}</div>
+                    <div className={`bubble ${m.role}`} style={{marginTop:'0.75rem', fontStyle:'italic'}}>
+                      Actually, many people say: {parts[1].trim()}
+                    </div>
+                  </div>
+                );
+              }
+              return <div key={i} className={`bubble ${m.role}`}>{m.content}</div>
+            })}
           </main>
 
           <label htmlFor="user-input" className="sr-only">Your line</label>
