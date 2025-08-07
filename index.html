@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <title>Kein Deal – A Negotiation Coach for the Swiss Cabinet</title>
+  <title>Kein Deal – Negotiation Coach</title>
   <meta name="description" content="Satirical Art‑of‑the‑Deal practice bot for the Swiss Federal Council." />
   <meta name="theme-color" content="#ffffff" />
 
@@ -14,7 +14,7 @@
       --bubble-radius:12px;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    body,button,input{font:16px/1.4 system-ui,Aktiv Grotesk,sans-serif;color:#222}
+    body,button,input{font:16px/1.4 system-ui,Arial,sans-serif;color:#222}
     body{background:#fff;}
 
     /* flex frame */
@@ -27,8 +27,8 @@
     h1{font-size:1.25rem;font-weight:600;text-align:center;margin-bottom:.5rem}
 
     /* avatar – keep proportions */
-    #avatar-container{text-align:center;max-height:200px;margin-bottom:.25rem}
-    #avatar{max-height:200px;max-width:100%;height:auto;width:auto}
+    #avatar-container{text-align:center;max-height:120px;margin-bottom:.25rem}
+    #avatar{max-height:100px;max-width:100%;height:auto;width:auto}
 
     /* chat */
     #chat-window{
@@ -166,90 +166,176 @@
     const shortBrags=['But let me tell you, we\'re still, winning bigly.','Yet we\'re ahead by miles, believe me.','Anyway, the numbers, they love me.','Still, nobody\'s even close, to my record.','Meanwhile, I\'m cashing, the biggest checks.'];
     const absurdQuestions=['Have you ever tried negotiating with a penguin?','Should we invoice the clouds for raining?','Do zebras pay tariffs on stripes?','What rate do you charge the sun for daylight?','Ever sold sand back to the Sahara?'];
 
-    const greet         =()=>`Do I know you? Hm? ${pick(boasts)}`;
-    const normalReply   =()=>`${pick(openings)} this is a ${pick(adjectives)} ${pick(nouns)}. A very, very ${pick(adjectives)} ${pick(nouns)}. And it's going to be ${pick(adjectives)}, because it's ${pick(adjectives)} and ${pick(adjectives)}. And you will absolutely love it, believe me. You know what I heard? Many people say: ${pick(anecdotes)}`;
+    const greet         =()=>`Do I know you? ${pick(boasts)}`;
+    const normalReply   =()=>`${pick(openings)} this is a ${pick(adjectives)} ${pick(nouns)}. A very, very ${pick(adjectives)} ${pick(nouns)}. And it's going to be ${pick(adjectives)}, because it's ${pick(adjectives)} and ${pick(adjectives)}. And you will absolutely love it, believe me. Actually, many people say: ${pick(anecdotes)}`;
     const confusedReply =()=>`I don't understand your question. ${pick(shortBrags)} ${pick(absurdQuestions)}`;
 
-    /* ---------- SPEECH SYNTHESIS ---------- */
+    /* ---------- SPEECH SYNTHESIS - ENHANCED FOR ALL BROWSERS ---------- */
     const getVoicesAsync=()=>new Promise(res=>{
       const done=()=>res(window.speechSynthesis.getVoices());
-      window.speechSynthesis.getVoices().length?done():window.speechSynthesis.addEventListener('voiceschanged',done,{once:true});
+      // Handle Chrome's async voice loading
+      if(window.speechSynthesis.getVoices().length){
+        done();
+      } else {
+        window.speechSynthesis.addEventListener('voiceschanged',done,{once:true});
+        // Fallback for browsers that don't fire voiceschanged
+        setTimeout(()=>done(),100);
+      }
     });
+    
     async function chooseVoice(){
-      const voices=await getVoicesAsync();if(!voices.length)return null;
+      const voices=await getVoicesAsync();
+      if(!voices.length) return null;
       
-      // Get all English voices
-      const enVoices=voices.filter(v=>v.lang?.startsWith('en'));
+      console.log('Available voices:', voices.map(v=>`${v.name} (${v.lang})`)); // Debug log
       
-      // PRIORITY 1: Premium natural male voices (these typically sound best)
-      const premiumMale=enVoices.find(v=>
-        /(Google US English Male|Microsoft David|Microsoft Mark|Microsoft Guy Online|Aaron|Gordon|Nathan)/i.test(v.name)
+      // COMPREHENSIVE MALE VOICE PATTERNS - ABSOLUTELY ENSURE MALE VOICE
+      const definitelyMalePatterns = [
+        // Direct male indicators
+        /\bmale\b/i, /\bman\b/i, /\bguy\b/i, /\bboy\b/i,
+        // Common US male names on all platforms
+        /\b(david|mark|alex|daniel|fred|bruce|tom|nathan|aaron|gordon|eric|brian|christopher|benjamin|james|robert|john|michael|william|richard|charles|joseph|thomas|paul|george|kenneth|steven|edward|ronald|anthony|kevin|jason|matthew|gary|timothy|jose|larry|jeffrey|frank|scott|eric|stephen|andrew|raymond|gregory|joshua|jerry|dennis|walter|patrick|peter|harold|douglas|henry|carl|arthur|ryan|roger|joe|juan|jack|albert|jonathan|justin|terry|gerald|keith|samuel|willie|ralph|lawrence|nicholas|roy|eugene|randy|vincent|russell|louis|nathan|philip|johnny|brad|danny|bryan|billy|jordan|albert|willie|wayne|alan|ralph|juan|elijah|willie|fred|andrew|jesse|ray|victor|martin)\b/i,
+        // Microsoft Windows voices
+        /microsoft\s*(david|mark|richard|george|paul|james|christopher)/i,
+        // Google voices
+        /google.*male/i, /male.*google/i,
+        // Edge/Chrome online
+        /online.*male/i, /male.*online/i,
+        // Country-specific male
+        /(united states|us|american|british|uk|australian|canadian|indian).*male/i,
+        /male.*(united states|us|american|british|uk|australian|canadian|indian)/i,
+        // Android/mobile patterns
+        /^male$/i, /^man$/i, /^en.*male/i, /^english.*male/i
+      ];
+      
+      // ABSOLUTELY EXCLUDE FEMALE VOICES
+      const definitelyFemalePatterns = [
+        // Direct female indicators
+        /\bfemale\b/i, /\bwoman\b/i, /\bgirl\b/i, /\blady\b/i, /\bfeminine\b/i,
+        // Common female names across all platforms
+        /\b(samantha|victoria|kate|karen|nicole|jennifer|susan|zira|hazel|linda|amy|emma|joanna|salli|ivy|kendra|kimberly|carol|hannah|martha|helen|betty|dorothy|alice|anna|ashley|barbara|catherine|charlotte|christine|cynthia|deborah|diane|elizabeth|emily|evelyn|frances|gloria|heather|janet|jean|jessica|joan|joyce|judith|julia|julie|kathleen|kathryn|laura|lauren|lillian|lisa|lori|madison|margaret|maria|marie|marilyn|mary|megan|melissa|michelle|nancy|natalie|olivia|pamela|patricia|rachel|rebecca|rose|ruth|sandra|sara|sarah|sharon|shirley|sophia|stephanie|tammy|teresa|tiffany|tracy|vanessa|veronica|vicki|virginia|ava|chloe|claire|ella|grace|isabella|lucy|mia|nora|penelope|quinn|riley|scarlett|stella|tessa|violet|willow|yasmin|zoe|agnes|audrey|beatrice|bernice|bertha|beverly|bonnie|brenda|bridget|candace|carla|carmen|carrie|cassandra|cecilia|celeste|cheryl|christina|cindy|clara|claudia|colleen|connie|constance|courtney|crystal|cynthia|daisy|dana|danielle|darlene|dawn|deanna|debbie|debra|delores|denise|desiree|diana|dolores|donna|doris|edith|edna|eileen|elaine|eleanor|elena|elise|ellen|elsa|elsie|emily|erica|erin|estelle|esther|ethel|eunice|eva|eve|faith|fannie|faye|felicia|fiona|florence|francine|gail|gayle|geneva|georgia|geraldine|gertrude|gina|ginger|gladys|glenda|glenna|grace|greta|gretchen|gwendolyn|harriet|hazel|heidi|helena|helga|henrietta|hilda|holly|hope|ida|ilene|imelda|imogene|inez|ingrid|irene|iris|irma|isabel|jackie|jacqueline|jamie|jan|jana|jane|janelle|janice|janie|jasmine|jay|jayne|jeanette|jeanne|jeannie|jenna|jennie|jenny|jerri|jill|jo|joann|joanna|joanne|jocelyn|jodi|jody|johanna|jolene|jordan|josephine|josie|joy|juanita|jude|judy|julia|juliana|julianne|julie|june|justine|kaitlin|kara|kari|karla|karma|kate|katelyn|katharine|katherine|kathi|kathie|kathleen|kathryn|kathy|katie|katrina|kay|kayla|kelley|kelli|kellie|kelly|kelsey|kendra|kenya|keri|kerri|kerry|kim|kimberley|kimberly|kirsten|kitty|krista|kristen|kristi|kristie|kristin|kristina|kristine|kristy|krystal|lacey|lana|lara|latoya|laura|laurel|lauren|laurie|laverne|leah|lee|leigh|lela|lena|lenora|leona|leslie|leta|leticia|lila|lillian|lillie|lily|linda|lindsay|lindsey|lisa|liz|liza|lizzie|lois|lola|lonnie|lora|loraine|lorena|loretta|lori|lorie|lorna|lorraine|louise|luann|lucia|lucille|lucinda|lucy|luella|lula|lydia|lynda|lynette|lynn|lynne|mabel|madeline|madison|mae|maggie|mamie|mandy|marcia|marcy|margaret|margarita|margie|marguerite|maria|marian|marianne|marie|marietta|marilyn|marina|marion|marisa|marissa|marjorie|marlene|marsha|marta|martha|martina|mary|maryann|marybeth|maryellen|maryjane|marylou|matilda|mattie|maureen|maxine|may|maya|meagan|meg|megan|meghan|melanie|melba|melinda|melissa|melody|mercedes|meredith|merle|michele|michelle|mildred|millicent|millie|mindy|minerva|minnie|miranda|miriam|misty|mitzi|molly|mona|monica|monique|morgan|muriel|myra|myrna|myrtle|nadine|nan|nancy|nanette|naomi|natalie|natasha|nellie|nettie|neva|nichol|nichole|nicole|nikki|nina|nita|noel|noelle|nola|nora|noreen|norma|odessa|olga|olive|olivia|opal|ophelia|ora|paige|pam|pamela|pansy|pat|patrice|patricia|patsy|patti|patty|paula|paulette|pauline|pearl|peggy|penelope|penny|petra|phyllis|polly|priscilla|prudence|rachel|rae|ramona|randi|raquel|raven|rebecca|rebekah|regina|rena|renee|rhea|rhoda|rhonda|rita|roberta|robyn|rochelle|ronda|rosa|rosalie|rosalind|rosalyn|rose|roseann|rosella|rosemarie|rosemary|rosetta|rosie|roslyn|rowena|roxanne|roxie|ruby|ruth|sabrina|sadie|sallie|sally|samantha|sammie|sandra|sandy|sara|sarah|sasha|savannah|selena|selma|serena|shana|shannon|shari|sharlene|sharon|sharron|shauna|shawn|shawna|sheena|sheila|shelby|shelia|shelley|shelly|sheree|sheri|sherri|sherrie|sherry|sheryl|shirley|simone|sondra|sonia|sonja|sonya|sophia|sophie|stacey|staci|stacie|stacy|star|starla|stefanie|stella|stephanie|sue|summer|sunny|susan|susanne|susie|suzanne|suzette|sybil|sylvia|tabatha|tabitha|tamara|tami|tamika|tammi|tammie|tammy|tania|tanisha|tanya|tara|taryn|tasha|taylor|teresa|teri|terri|terrie|terry|tessa|thelma|theodora|theresa|therese|tiffany|tina|tisha|toni|tonia|tonya|tori|tracey|traci|tracie|tracy|tricia|trina|trisha|trudy|twila|tyler|tyra|ursula|val|valarie|valeria|valerie|vanessa|velma|vera|verna|veronica|vicki|vickie|vicky|victoria|viola|violet|virgie|virginia|vivian|vonda|wanda|wendy|whitney|wilda|willa|willie|wilma|winifred|winnie|yolanda|yvette|yvonne|zelda|zelma|zoe|zola|flo|gwendolyn|henrietta|hilda|holly)\b/i,
+        // Microsoft female
+        /microsoft\s*(zira|eva|hazel|susan|catherine|helen|linda)/i,
+        // Google female
+        /google.*female/i, /female.*google/i
+      ];
+      
+      // STEP 1: Try to find DEFINITELY MALE voice by pattern
+      const definitelyMale = voices.find(v => 
+        definitelyMalePatterns.some(pattern => pattern.test(v.name)) &&
+        !definitelyFemalePatterns.some(pattern => pattern.test(v.name))
       );
-      if(premiumMale) return premiumMale;
       
-      // PRIORITY 2: Any enhanced/online male voice
-      const enhancedMale=enVoices.find(v=>
-        !v.localService && 
-        /(Male|David|Mark|Guy|Christopher|Eric|Benjamin|Brian)/i.test(v.name)
+      if(definitelyMale) {
+        console.log('✓ Selected DEFINITELY MALE voice:', definitelyMale.name);
+        return definitelyMale;
+      }
+      
+      // STEP 2: Try US/UK English that's NOT female
+      const englishNotFemale = voices.find(v => 
+        v.lang && (v.lang.includes('en-US') || v.lang.includes('en-GB') || v.lang.includes('en_US') || v.lang.includes('en_GB')) &&
+        !definitelyFemalePatterns.some(pattern => pattern.test(v.name))
       );
-      if(enhancedMale) return enhancedMale;
       
-      // PRIORITY 3: Local male voices (Alex is often good on Mac, David on Windows)
-      const localMale=enVoices.find(v=>
-        v.localService && 
-        /(Alex|David|Mark|Daniel|Fred|Bruce|Junior|Ralph|Albert|Bad News|Bahh|Bells|Boing|Bubbles|Good News)/i.test(v.name)
+      if(englishNotFemale) {
+        console.log('✓ Selected English non-female voice:', englishNotFemale.name);
+        return englishNotFemale;
+      }
+      
+      // STEP 3: Select first voice that is NOT female
+      const notFemale = voices.find(v => 
+        !definitelyFemalePatterns.some(pattern => pattern.test(v.name))
       );
-      if(localMale) return localMale;
       
-      // PRIORITY 4: Any voice with "Male" in name
-      const anyMale=voices.find(v=>/(Male|Guy|Man)/i.test(v.name));
-      if(anyMale) return anyMale;
+      if(notFemale) {
+        console.log('✓ Selected non-female voice:', notFemale.name);
+        return notFemale;
+      }
       
-      // PRIORITY 5: Avoid female voices
-      const notFemale=voices.find(v=>!/(Female|Woman|Girl|Samantha|Victoria|Kate|Karen|Nicole|Jennifer|Kathy|Vicki|Princess|Agnes|Kathy|Susan|Zira|Hazel|Heather)/i.test(v.name));
+      // STEP 4: Last resort - pick voice with shortest name (often male)
+      const shortestName = voices.reduce((prev, curr) => 
+        curr.name.length < prev.name.length ? curr : prev
+      );
       
-      return notFemale||voices[0];
+      console.log('⚠ Using shortest name voice (likely male):', shortestName.name);
+      return shortestName;
     }
+    
     async function speak(text,onStart){
-      if(!('speechSynthesis'in window))return;
+      if(!('speechSynthesis' in window)) return;
+      
+      // Cancel any ongoing speech
       window.speechSynthesis.cancel();
       
-      // Add natural pauses by enhancing punctuation
+      // Enhanced text processing for clearer pronunciation
       let enhancedText = text
-        .replace(/\. /g, '... ') // Longer pauses after sentences
-        .replace(/, /g, ',, ') // Slightly longer pauses after commas
-        .replace(/—/g, '... ') // Pause for em dashes
-        .replace(/believe me/gi, '... believe me...') // Dramatic pause around signature phrase
-        .replace(/Actually/g, '... Actually') // Pause before "Actually"
-        .replace(/\?/g, '?..'); // Pause after questions
+        // Add pauses for clarity
+        .replace(/\. /g, '.... ') // Longer pauses after sentences
+        .replace(/\! /g, '!... ') // Pause after exclamations
+        .replace(/\? /g, '?... ') // Pause after questions
+        .replace(/, /g, '.. ') // Clear pause after commas
+        .replace(/—/g, '.... ') // Long pause for em dashes
+        .replace(/: /g, ':.. ') // Pause after colons
+        // Emphasize key phrases
+        .replace(/believe me/gi, '... believe. me...') // Clear separation
+        .replace(/Actually/g, '... Actually,') // Clear intro
+        .replace(/many people say/gi, '... many people. say') // Clear articulation
+        // Break up complex words for clarity
+        .replace(/tremendous/gi, 'tre-mendous')
+        .replace(/fantastic/gi, 'fan-tastic')
+        .replace(/incredible/gi, 'in-credible')
+        .replace(/spectacular/gi, 'spec-tacular')
+        .replace(/billion/gi, 'bill-ion')
+        .replace(/million/gi, 'mill-ion')
+        // Clear transitions
+        .replace(/very very/gi, 'very. very')
+        .replace(/and it\'s/gi, '... and it\'s')
+        .replace(/because/gi, '... because');
       
-      const utt=new SpeechSynthesisUtterance(enhancedText);
+      const utt = new SpeechSynthesisUtterance(enhancedText);
       
-      // Natural male voice parameters
-      utt.rate=0.9; // Natural speaking pace
-      utt.pitch=0.9; // Lower pitch for masculine voice
-      utt.volume=0.95; // Comfortable volume
-      utt.lang='en-US';
+      // MASCULINE voice settings - ABSOLUTELY ensure deep male voice
+      utt.rate = 0.85; // Slower for clarity
+      utt.pitch = 0.7; // MUCH LOWER pitch for definitely masculine voice
+      utt.volume = 1.0; // Full volume
+      utt.lang = 'en-US';
       
-      const v=await chooseVoice();
-      if(v){
-        utt.voice=v;
-        console.log('Using voice:', v.name); // Debug: see which voice is selected
+      // Set voice
+      const voice = await chooseVoice();
+      if(voice) {
+        utt.voice = voice;
         
-        // Fine-tune based on specific voices
-        if(/Alex/i.test(v.name)){
-          utt.rate=0.95; // Alex sounds good slightly faster
-          utt.pitch=0.85; // Lower pitch for Alex
-        } else if(/(David|Mark)/i.test(v.name)){
-          utt.rate=0.88; // David/Mark need slower pace
-          utt.pitch=0.9;
-        } else if(/Google/i.test(v.name)){
-          utt.rate=0.92;
-          utt.pitch=0.88;
+        // Fine-tune based on detected voice type
+        if(voice.name.toLowerCase().includes('female') || 
+           voice.name.toLowerCase().includes('woman') ||
+           voice.name.toLowerCase().includes('girl')) {
+          // If somehow we got a female voice, make it as deep as possible
+          utt.pitch = 0.5; // VERY low pitch to masculinize
+          utt.rate = 0.75; // Slower
+          console.warn('⚠ Female voice detected, compensating with very low pitch');
+        } else if(voice.name.toLowerCase().includes('alex')) {
+          utt.rate = 0.9;
+          utt.pitch = 0.75;
+        } else if(voice.name.toLowerCase().includes('david') || voice.name.toLowerCase().includes('mark')) {
+          utt.rate = 0.82;
+          utt.pitch = 0.7;
+        } else if(voice.name.toLowerCase().includes('google')) {
+          utt.rate = 0.88;
+          utt.pitch = 0.72;
+        } else if(voice.name.toLowerCase().includes('microsoft')) {
+          utt.rate = 0.85;
+          utt.pitch = 0.75;
         }
       }
       
-      if(onStart) utt.onstart=onStart;
+      if(onStart) utt.onstart = onStart;
+      
+      // Error handling
+      utt.onerror = (e) => {
+        console.error('Speech error:', e);
+      };
+      
+      // Speak
       window.speechSynthesis.speak(utt);
     }
 
@@ -271,12 +357,12 @@
       const [showPerm,setShowPerm]=useState(false);
       const chatRef=useRef(null);
       const welcomeSpokenRef=useRef(false);
-      const speechInitiatedRef=useRef(false); // NEW: Track if we've initiated speech
+      const speechInitiatedRef=useRef(false);
 
       /* scroll */
       useEffect(()=>{chatRef.current?.scrollTo({top:chatRef.current.scrollHeight,behavior:'smooth'});},[messages]);
 
-      /* speak greeting once - FIXED VERSION */
+      /* speak greeting once */
       useEffect(()=>{
         // Guard against multiple executions
         if(speechInitiatedRef.current) return;
@@ -289,13 +375,13 @@
 
         const permTimer=setTimeout(()=>{
           if(!welcomeSpokenRef.current) setShowPerm(true);
-        },1500); // Increased timeout slightly
+        },1500);
 
         return()=>{
           clearTimeout(speechTimer);
           clearTimeout(permTimer);
         };
-      },[]); // Changed dependency to empty array since welcome doesn't change
+      },[]);
 
       const enableAudio=()=>{
         setShowPerm(false);
