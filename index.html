@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <title>Kein Deal – Negotiation Coach</title>
+  <title>Kein Deal – A Negotiation Coach for the Swiss Cabinet</title>
   <meta name="description" content="Satirical Art‑of‑the‑Deal practice bot for the Swiss Federal Council." />
   <meta name="theme-color" content="#ffffff" />
 
@@ -14,7 +14,7 @@
       --bubble-radius:12px;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    body,button,input{font:16px/1.4 system-ui,Arial,sans-serif;color:#222}
+    body,button,input{font:16px/1.4 system-ui,Aktiv Grotesk,sans-serif;color:#222}
     body{background:#fff;}
 
     /* flex frame */
@@ -166,8 +166,8 @@
     const shortBrags=['But let me tell you, we\'re still, winning bigly.','Yet we\'re ahead by miles, believe me.','Anyway, the numbers, they love me.','Still, nobody\'s even close, to my record.','Meanwhile, I\'m cashing, the biggest checks.'];
     const absurdQuestions=['Have you ever tried negotiating with a penguin?','Should we invoice the clouds for raining?','Do zebras pay tariffs on stripes?','What rate do you charge the sun for daylight?','Ever sold sand back to the Sahara?'];
 
-    const greet         =()=>`Do I know you? ${pick(boasts)}`;
-    const normalReply   =()=>`${pick(openings)} this is a ${pick(adjectives)} ${pick(nouns)}. A very, very ${pick(adjectives)} ${pick(nouns)}. And it's going to be ${pick(adjectives)}, because it's ${pick(adjectives)} and ${pick(adjectives)}. And you will absolutely love it, believe me. Actually, many people say: ${pick(anecdotes)}`;
+    const greet         =()=>`Do I know you? Hm? ${pick(boasts)}`;
+    const normalReply   =()=>`${pick(openings)} this is a ${pick(adjectives)} ${pick(nouns)}. A very, very ${pick(adjectives)} ${pick(nouns)}. And it's going to be ${pick(adjectives)}, because it's ${pick(adjectives)} and ${pick(adjectives)}. And you will absolutely love it, believe me. You know what I heard? Many people say: ${pick(anecdotes)}`;
     const confusedReply =()=>`I don't understand your question. ${pick(shortBrags)} ${pick(absurdQuestions)}`;
 
     /* ---------- SPEECH SYNTHESIS ---------- */
