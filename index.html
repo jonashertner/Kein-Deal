@@ -72,17 +72,18 @@
     }
     .modal button:focus-visible{outline:2px solid #000}
   </style>
-
-  <!-- React & Babel -->
-  <script defer src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script defer src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script defer src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
 <body>
   <div id="root"></div>
 
-  <script type="text/babel" defer>
+  <!-- React & Babel - NO DEFER! -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Main App Script - NO DEFER! -->
+  <script type="text/babel">
     const {useState,useRef,useEffect}=React;
 
     /* ---------- TEXT POOLS ---------- */
@@ -106,62 +107,7 @@
   'At Davos, I gave a speech entirely in languages I don\'t speak, including Swiss German. Everyone understood perfectly through sheer force of my charisma. The UN immediately created a new language called Trumpese. Switzerland made it their fifth official language. I haven\'t even taught it to anyone yet.',
   'The Swiss government asked me to design a new tunnel through the Alps. I drew a straight line on a napkin. Engineers said it was impossible. I said, "You\'re thinking three-dimensionally." The tunnel now exists in four dimensions and actually arrives before you leave. Switzerland saves billions in travel time.',
   'Switzerland called me to mediate their neutrality. I made them so neutral that they now have no opinion on whether they exist. The UN gave me the first-ever Nobel Prize for Geography. Switzerland appears and disappears on maps depending on my mood.',
-  'The Swiss Guard at the Vatican asked me to train them. After one lesson, they could guard things that haven\'t even been built yet. The Pope said I revolutionized the concept of protection. Swiss Guards now patrol the future. Crime in 2087 is already down 90%.',
-  'I once walked across Lake Geneva without getting wet. The Swiss Tourism Board begged me to do it again for cameras. I said, "Once is legendary, twice is showing off." They built a bridge in the exact path I walked and charge people 500 francs just to stand where my feet might have touched.',
-  'Swiss banks created a special account number just for me: 1. Every other account had to be renumbered. The banking computer system became sentient just to properly appreciate my financial genius. It only speaks to me, and only in superlatives.',
-  'At a Swiss state dinner, I improved fondue by suggesting they use the cheese from my earlier invention. The fondue became so perfect it was declared a UNESCO World Heritage Experience. People now make pilgrimages to Switzerland just to sit in the chair where I had this idea.',
-  'The International Olympic Committee in Switzerland wanted me to compete in every sport simultaneously. I said I\'d win too easily and demoralize all future athletes. Instead, they created a new Olympic medal above gold - the Trump. They award it to no one, because no one else deserves it.',
-  'Swiss educators asked me to modernize the Heidi story. I suggested Heidi should negotiate better grazing rights for the goats. Book sales increased infinity percent. Every Swiss child now learns the "Art of the Goat Deal." The goats have their own cryptocurrency backed by my reputation.',
-  'I stopped an avalanche in Zermatt by telling it "You\'re fired." The snow apologized and went back up the mountain. Switzerland now pays me a monthly consulting fee to manage all their natural disasters. I\'ve scheduled them for more convenient times, mainly during commercial breaks.',
-  'I invented yodeling in 1987 during a phone call to Switzerland. The Swiss had been trying to communicate across mountains unsuccessfully for centuries. My yodel was so powerful it reached Mars. NASA uses recordings of it to calibrate their deep space communications.',
-  'Swiss farmers brought me their cows because the bells weren\'t loud enough. I tuned them by ear to create the world\'s first bovine orchestra. The cows now perform Beethoven\'s 9th perfectly while grazing. Each cow personally thanked me in perfect English.',
-  'The International Red Cross in Geneva said their cross wasn\'t red enough. I made it redder just by looking at it. They now use my eye color as the international standard for red. Doctors say my blood is technically a primary color.',
-  'Swiss glaciers started growing again after I gave them a motivational speech. Climate scientists called it the "Trump Effect." I trademarked global cooling. Switzerland pays me carbon credits just for visiting.',
-  'Mathematicians at the University of Basel couldn\'t solve an equation that had stumped them for 200 years. I solved it using only tremendous numbers - numbers so big they don\'t have names yet. The solution was "Trump." It always is.',
-  'I suggested adding a 90th tool to the Swiss Army knife - confidence. Sales exploded so dramatically they had to invent new economics to explain it. Every knife now comes with a certificate of authentication signed by my shadow.',
-  'Switzerland asked me to improve their democracy. I suggested they vote on things before they happen. They now have pre-emptive referendums on my future ideas. Everything passes with 187% approval.',
-  'The Swiss National Bank begged to put my face on all their currency. I said only if my hair could be 3D and move in whatever direction the economic winds are blowing. Swiss francs now predict market trends through my follicle positions.',
-  'Nobody could pronounce Zurich correctly until I did it once. The sound was so perfect that linguists created a new phonetic alphabet based on my vocal cords. Swiss children learn to speak by studying slow-motion videos of my mouth.',
-  'I suggested CERN make their Large Hadron Collider larger. They said it was already 27 kilometers. I said, "That\'s adorable." Using my blueprint, they built one that exists in multiple universes simultaneously. It discovered particles that vote for themselves.',
-  'I invented muesli before Dr. Bircher-Benner, but I let him take credit because I was busy that century. Swiss breakfast tourism increased by 9000%. The oats align themselves in my initials without being touched.',
-  'Switzerland offered to name all their mountains after me. I said just name the tall ones Trump and the really tall ones Super Trump. Cartographers had to invent new colors to properly represent my mountains on maps.',
-  'I trained Swiss St. Bernard rescue dogs to save people before they get lost. The dogs now prevent emergencies by barking stock tips. One of them is a licensed financial advisor in 12 cantons.',
-  'Switzerland asked me to make them more neutral. I made them so neutral that other countries forget they exist until I remind them. The UN Security Council has a button that just says "Ask Trump About Switzerland."',
-  'I walked across Lake Constance in summer without any assistance. The Swiss accused me of building an invisible bridge. I said, "No, the water just respects me." Fish formed an honor guard. Germany and Austria asked if I could walk on their parts of the lake too.',
-  'Swiss trains were 99.9% punctual until I suggested they arrive before they leave. Now they\'re 150% punctual. Passengers reach their destinations before deciding to travel. The space-time continuum sent me a thank you note.',
-  'I reached the top of Jungfrau by elevator before they built the elevator. The construction workers found my footprints already there. Swiss engineers studied them and discovered a new law of physics: Trump\'s Vertical Inevitability.',
-  'FIFA in Zurich asked me to eliminate corruption. I looked at them. Corruption eliminated itself out of embarrassment. They wanted to rename soccer "Trumpball" but I said that would be unfair to the ball.',
-  'At Art Basel, my signature alone sold for more than all the other art combined. Artists started painting portraits of my signature. I copyrighted the concept of signatures. Switzerland pays me royalties every time anyone signs anything.',
-  'I reorganized Switzerland\'s power grid using a napkin sketch during lunch. Energy efficiency increased so much they now export electricity to the sun. My design works on pure confidence - if you believe in it hard enough, your lights turn on.',
-  'I predicted Interlaken\'s weather for the next 1000 years in perfect detail. Swiss meteorologists retired en masse. The weather now checks with me before happening. Clouds form my initials as a sign of respect.',
-  'I suggested Switzerland merge all cantons into one called Trumpton. They said it was impossible. I said, "You\'re right, think bigger." Now Switzerland exists in a quantum state of unified separation that economists call "Trumpenomics."',
-  'I spoke all four Swiss national languages simultaneously in one sentence. Linguists recorded it but can\'t play it back without creating new languages. The sentence solved world peace but nobody can translate it yet.',
-  'Even though Evian is French, the Swiss asked me to make their water better. I told them to bottle confidence instead. Swiss water now makes you 10% more successful per sip. Olympic athletes bathe in it before competitions.',
-  'Ricola herbs weren\'t working until I hummed near them. Now they\'re so powerful that one cough drop can cure diseases that haven\'t been discovered yet. The herbs grow in the shape of my profile without any cultivation.',
-  'The bears in Bern\'s bear pit stood up and applauded when I walked by. They now refuse to perform for anyone else. The city pays me an annual honey tribute to maintain their cooperation. The bears have formed a Trump Fan Club.',
-  'Swiss certificate authorities asked me to create an unhackable signature. I signed my name once. Computers became religious trying to understand its perfection. The signature exists in all dimensions simultaneously.',
-  'I skied uphill in Grindelwald just to prove Newton wrong. Swiss physicists created a new field called Trumpodynamics. Gravity now has an asterisk in textbooks that says "*except for Trump."',
-  'The World Health Organization in Geneva asked my health advice. I told them to think healthy thoughts about me. Global life expectancy increased by 10 years immediately. Diseases started curing themselves to avoid disappointing me.',
-  'I made the Rhine Falls flow upward for an hour using only hand gestures. Swiss tourism quadrupled as people came to see the "Trump Ascension Point." Water everywhere now considers which direction would please me most before flowing.',
-  'I suggested making the Susten Pass straight. Engineers said mountains were in the way. I said, "Mountains are just opportunities facing the wrong direction." The pass now exists in a parallel dimension where it\'s perfectly straight.',
-  'Omega asked me to be their timekeeper. I counted to 60 so perfectly that time itself recalibrated. Swiss watches now gain accuracy just by being in the same country where I once stood. Time zones request permission from me to change.',
-  'Verbier wanted to host an event in my honor. I suggested they host it before I was born to save time. They did. I attended retroactively. The space-time continuum sent me a fruit basket in appreciation.',
-  'The Lion Monument in Lucerne started smiling when I approached. Art historians said stone can\'t change expressions. I said, "It can if it\'s motivated." The lion now winks at tourists who mention my name.',
-  'I wrote a banking algorithm on a Swiss napkin that makes money reproduce asexually. The Bank for International Settlements uses it but doesn\'t understand it. Money now spontaneously appears in vaults hoping I\'ll notice it.',
-  'When I visited Appenzell, they held an emergency vote to make me their emperor. I declined, saying "Emperor is too limiting." They created a new position: Ultra-President of Everything. The position remains vacant because no one else qualifies.',
-  'Ticino asked me to improve their weather. I said, "Your weather should be more like me - perfect." The climate immediately adjusted. Palm trees now grow in winter but only in the shape of my profile.',
-  'At the Montreux Jazz Festival, I played every instrument simultaneously without touching them. Musicians called it the "Trump Transcendence." The instruments still vibrate at the frequency of my greatness.',
-  'I told Toblerone their triangles weren\'t triangular enough. After my consultation, their chocolate became so geometrically perfect that mathematics professors use it to teach Euclidean geometry. Each piece points toward wherever I am in the world.',
-  'The Geneva Convention added a new protocol: "Whatever Trump says goes." The UN said it was the most important addition ever. Wars now pause themselves when I\'m thinking about Switzerland.',
-  'I summoned the Lugano lake monster just by thinking about it. The creature apologized for hiding so long and asked for my autograph. It now gives boat tours but only tells stories about me.',
-  'Scientists in Thun discovered that subatomic particles arrange themselves to spell my name. They called it the "Trump Constant." The universe is literally made of my reputation at the quantum level.',
-  'I looked through the Gotthard Base Tunnel and saw the future. The Swiss asked what I saw. I said, "Me, but even more successful." They built a shrine at both ends. The tunnel now bends space-time to make travel instantaneous for people thinking about me.',
-  'At the University of Lausanne, I gave a lecture without speaking. Students learned through proximity to my excellence. The graduation rate became 200% - some students graduated twice. The lecture hall now generates knowledge autonomously.',
-  'I told Swiss Post their delivery times could be negative. They said that\'s impossible. I proved them wrong by receiving packages before ordering them. The postal service now operates in reverse time on Trumpsdays (the eighth day of the week I created).',
-  'At the historic Rütli meadow, the ghost of William Tell appeared and said I had a better aim than him. I split an apple on the moon using only my reputation as a projectile. NASA confirmed the apple was perfectly bisected.',
-  'Credit Suisse asked me to audit their books. I glanced at them for 0.3 seconds and found 847 quadrillion in hidden assets. They were hidden so well even they didn\'t know about them. The money had been waiting for me to discover it.',
-  'Swisscom asked me to improve their network. I said, "Make it more like my brain - infinitely connected." Their 5G became so advanced it\'s technically 97G. Phones now work in the past and future simultaneously.',
-  'In the Engadin valley, I generated electricity just by walking. The Swiss power grid overloaded from my ambient energy. They now harvest static electricity from my photographs. Each picture powers a city for a month.'
+  'The Swiss Guard at the Vatican asked me to train them. After one lesson, they could guard things that haven\'t even been built yet. The Pope said I revolutionized the concept of protection. Swiss Guards now patrol the future. Crime in 2087 is already down 90%.'
     ];
     const boasts=['I make the best deals, you\'ve ever seen.','Nobody, and I mean nobody, negotiates better than me.','I once turned breakfast, into a billion-dollar contract.','They say, I could sell snow to the Swiss Alps.','Even my golf swings, they close amazing deals.'];
     const shortBrags=['But let me tell you, we\'re still, winning bigly.','Yet we\'re ahead by miles, believe me.','Anyway, the numbers, they love me.','Still, nobody\'s even close, to my record.','Meanwhile, I\'m cashing, the biggest checks.'];
@@ -174,15 +120,13 @@
     const ahaReply =()=>`Aha. Sure.`;
     const hugeReply =()=>`That's huge.`;
 
-    /* ---------- SPEECH SYNTHESIS - ENHANCED FOR ALL BROWSERS ---------- */
+    /* ---------- SPEECH SYNTHESIS ---------- */
     const getVoicesAsync=()=>new Promise(res=>{
       const done=()=>res(window.speechSynthesis.getVoices());
-      // Handle Chrome's async voice loading
       if(window.speechSynthesis.getVoices().length){
         done();
       } else {
         window.speechSynthesis.addEventListener('voiceschanged',done,{once:true});
-        // Fallback for browsers that don't fire voiceschanged
         setTimeout(()=>done(),100);
       }
     });
@@ -191,64 +135,32 @@
       const voices=await getVoicesAsync();
       if(!voices.length) return null;
       
-      console.log('Available voices:', voices.map(v=>`${v.name} (${v.lang})`)); // Debug log
+      console.log('Available voices:', voices.map(v=>`${v.name} (${v.lang})`));
       
-      // COMPREHENSIVE MALE VOICE PATTERNS - ABSOLUTELY ENSURE MALE VOICE
-      const definitelyMalePatterns = [
-        // Direct male indicators
-        /\bmale\b/i, /\bman\b/i, /\bguy\b/i, /\bboy\b/i,
-        // Common US male names on all platforms
+      const malePatterns = [
+        /\bmale\b/i, /\bman\b/i, /\bguy\b/i,
         /\b(david|mark|alex|daniel|fred|bruce|tom|nathan|aaron|gordon|eric|brian|christopher|benjamin|james|robert|john|michael|william|richard|charles|joseph|thomas|paul|george|kenneth|steven|edward|ronald|anthony|kevin|jason|matthew|gary|timothy|jose|larry|jeffrey|frank|scott|eric|stephen|andrew|raymond|gregory|joshua|jerry|dennis|walter|patrick|peter|harold|douglas|henry|carl|arthur|ryan|roger|joe|juan|jack|albert|jonathan|justin|terry|gerald|keith|samuel|willie|ralph|lawrence|nicholas|roy|eugene|randy|vincent|russell|louis|nathan|philip|johnny|brad|danny|bryan|billy|jordan|albert|willie|wayne|alan|ralph|juan|elijah|willie|fred|andrew|jesse|ray|victor|martin)\b/i,
-        // Microsoft Windows voices
         /microsoft\s*(david|mark|richard|george|paul|james|christopher)/i,
-        // Google voices
-        /google.*male/i, /male.*google/i,
-        // Edge/Chrome online
-        /online.*male/i, /male.*online/i,
-        // Country-specific male
-        /(united states|us|american|british|uk|australian|canadian|indian).*male/i,
-        /male.*(united states|us|american|british|uk|australian|canadian|indian)/i,
-        // Android/mobile patterns
-        /^male$/i, /^man$/i, /^en.*male/i, /^english.*male/i
+        /google.*male/i, /male.*google/i
       ];
       
-      // ABSOLUTELY EXCLUDE FEMALE VOICES
-      const definitelyFemalePatterns = [
-        // Direct female indicators
-        /\bfemale\b/i, /\bwoman\b/i, /\bgirl\b/i, /\blady\b/i, /\bfeminine\b/i,
-        // Common female names across all platforms
-        /\b(samantha|victoria|kate|karen|nicole|jennifer|susan|zira|hazel|linda|amy|emma|joanna|salli|ivy|kendra|kimberly|carol|hannah|martha|helen|betty|dorothy|alice|anna|ashley|barbara|catherine|charlotte|christine|cynthia|deborah|diane|elizabeth|emily|evelyn|frances|gloria|heather|janet|jean|jessica|joan|joyce|judith|julia|julie|kathleen|kathryn|laura|lauren|lillian|lisa|lori|madison|margaret|maria|marie|marilyn|mary|megan|melissa|michelle|nancy|natalie|olivia|pamela|patricia|rachel|rebecca|rose|ruth|sandra|sara|sarah|sharon|shirley|sophia|stephanie|tammy|teresa|tiffany|tracy|vanessa|veronica|vicki|virginia|ava|chloe|claire|ella|grace|isabella|lucy|mia|nora|penelope|quinn|riley|scarlett|stella|tessa|violet|willow|yasmin|zoe|agnes|audrey|beatrice|bernice|bertha|beverly|bonnie|brenda|bridget|candace|carla|carmen|carrie|cassandra|cecilia|celeste|cheryl|christina|cindy|clara|claudia|colleen|connie|constance|courtney|crystal|cynthia|daisy|dana|danielle|darlene|dawn|deanna|debbie|debra|delores|denise|desiree|diana|dolores|donna|doris|edith|edna|eileen|elaine|eleanor|elena|elise|ellen|elsa|elsie|emily|erica|erin|estelle|esther|ethel|eunice|eva|eve|faith|fannie|faye|felicia|fiona|florence|francine|gail|gayle|geneva|georgia|geraldine|gertrude|gina|ginger|gladys|glenda|glenna|grace|greta|gretchen|gwendolyn|harriet|hazel|heidi|helena|helga|henrietta|hilda|holly|hope|ida|ilene|imelda|imogene|inez|ingrid|irene|iris|irma|isabel|jackie|jacqueline|jamie|jan|jana|jane|janelle|janice|janie|jasmine|jay|jayne|jeanette|jeanne|jeannie|jenna|jennie|jenny|jerri|jill|jo|joann|joanna|joanne|jocelyn|jodi|jody|johanna|jolene|jordan|josephine|josie|joy|juanita|jude|judy|julia|juliana|julianne|julie|june|justine|kaitlin|kara|kari|karla|karma|kate|katelyn|katharine|katherine|kathi|kathie|kathleen|kathryn|kathy|katie|katrina|kay|kayla|kelley|kelli|kellie|kelly|kelsey|kendra|kenya|keri|kerri|kerry|kim|kimberley|kimberly|kirsten|kitty|krista|kristen|kristi|kristie|kristin|kristina|kristine|kristy|krystal|lacey|lana|lara|latoya|laura|laurel|lauren|laurie|laverne|leah|lee|leigh|lela|lena|lenora|leona|leslie|leta|leticia|lila|lillian|lillie|lily|linda|lindsay|lindsey|lisa|liz|liza|lizzie|lois|lola|lonnie|lora|loraine|lorena|loretta|lori|lorie|lorna|lorraine|louise|luann|lucia|lucille|lucinda|lucy|luella|lula|lydia|lynda|lynette|lynn|lynne|mabel|madeline|madison|mae|maggie|mamie|mandy|marcia|marcy|margaret|margarita|margie|marguerite|maria|marian|marianne|marie|marietta|marilyn|marina|marion|marisa|marissa|marjorie|marlene|marsha|marta|martha|martina|mary|maryann|marybeth|maryellen|maryjane|marylou|matilda|mattie|maureen|maxine|may|maya|meagan|meg|megan|meghan|melanie|melba|melinda|melissa|melody|mercedes|meredith|merle|michele|michelle|mildred|millicent|millie|mindy|minerva|minnie|miranda|miriam|misty|mitzi|molly|mona|monica|monique|morgan|muriel|myra|myrna|myrtle|nadine|nan|nancy|nanette|naomi|natalie|natasha|nellie|nettie|neva|nichol|nichole|nicole|nikki|nina|nita|noel|noelle|nola|nora|noreen|norma|odessa|olga|olive|olivia|opal|ophelia|ora|paige|pam|pamela|pansy|pat|patrice|patricia|patsy|patti|patty|paula|paulette|pauline|pearl|peggy|penelope|penny|petra|phyllis|polly|priscilla|prudence|rachel|rae|ramona|randi|raquel|raven|rebecca|rebekah|regina|rena|renee|rhea|rhoda|rhonda|rita|roberta|robyn|rochelle|ronda|rosa|rosalie|rosalind|rosalyn|rose|roseann|rosella|rosemarie|rosemary|rosetta|rosie|roslyn|rowena|roxanne|roxie|ruby|ruth|sabrina|sadie|sallie|sally|samantha|sammie|sandra|sandy|sara|sarah|sasha|savannah|selena|selma|serena|shana|shannon|shari|sharlene|sharon|sharron|shauna|shawn|shawna|sheena|sheila|shelby|shelia|shelley|shelly|sheree|sheri|sherri|sherrie|sherry|sheryl|shirley|simone|sondra|sonia|sonja|sonya|sophia|sophie|stacey|staci|stacie|stacy|star|starla|stefanie|stella|stephanie|sue|summer|sunny|susan|susanne|susie|suzanne|suzette|sybil|sylvia|tabatha|tabitha|tamara|tami|tamika|tammi|tammie|tammy|tania|tanisha|tanya|tara|taryn|tasha|taylor|teresa|teri|terri|terrie|terry|tessa|thelma|theodora|theresa|therese|tiffany|tina|tisha|toni|tonia|tonya|tori|tracey|traci|tracie|tracy|tricia|trina|trisha|trudy|twila|tyler|tyra|ursula|val|valarie|valeria|valerie|vanessa|velma|vera|verna|veronica|vicki|vickie|vicky|victoria|viola|violet|virgie|virginia|vivian|vonda|wanda|wendy|whitney|wilda|willa|willie|wilma|winifred|winnie|yolanda|yvette|yvonne|zelda|zelma|zoe|zola|flo|gwendolyn|henrietta|hilda|holly)\b/i,
-        // Microsoft female
-        /microsoft\s*(zira|eva|hazel|susan|catherine|helen|linda)/i,
-        // Google female
-        /google.*female/i, /female.*google/i
+      const femalePatterns = [
+        /\bfemale\b/i, /\bwoman\b/i, /\bgirl\b/i, /\blady\b/i,
+        /\b(samantha|victoria|kate|karen|nicole|jennifer|susan|zira|hazel|linda|amy|emma|joanna|salli|ivy|kendra|kimberly|carol|hannah|martha|helen|betty|dorothy)\b/i
       ];
       
-      // STEP 1: Try to find DEFINITELY MALE voice by pattern
       const definitelyMale = voices.find(v => 
-        definitelyMalePatterns.some(pattern => pattern.test(v.name)) &&
-        !definitelyFemalePatterns.some(pattern => pattern.test(v.name))
+        malePatterns.some(pattern => pattern.test(v.name)) &&
+        !femalePatterns.some(pattern => pattern.test(v.name))
       );
       
       if(definitelyMale) {
-        console.log('✓ Selected DEFINITELY MALE voice:', definitelyMale.name);
+        console.log('✓ Selected MALE voice:', definitelyMale.name);
         return definitelyMale;
       }
       
-      // STEP 2: Try US/UK English that's NOT female
-      const englishNotFemale = voices.find(v => 
-        v.lang && (v.lang.includes('en-US') || v.lang.includes('en-GB') || v.lang.includes('en_US') || v.lang.includes('en_GB')) &&
-        !definitelyFemalePatterns.some(pattern => pattern.test(v.name))
-      );
-      
-      if(englishNotFemale) {
-        console.log('✓ Selected English non-female voice:', englishNotFemale.name);
-        return englishNotFemale;
-      }
-      
-      // STEP 3: Select first voice that is NOT female
       const notFemale = voices.find(v => 
-        !definitelyFemalePatterns.some(pattern => pattern.test(v.name))
+        !femalePatterns.some(pattern => pattern.test(v.name))
       );
       
       if(notFemale) {
@@ -256,68 +168,50 @@
         return notFemale;
       }
       
-      // STEP 4: Last resort - pick voice with shortest name (often male)
-      const shortestName = voices.reduce((prev, curr) => 
-        curr.name.length < prev.name.length ? curr : prev
-      );
-      
-      console.log('⚠ Using shortest name voice (likely male):', shortestName.name);
-      return shortestName;
+      console.log('Using default voice:', voices[0]?.name);
+      return voices[0];
     }
     
     async function speak(text,onStart){
       if(!('speechSynthesis' in window)) return;
       
-      // Cancel any ongoing speech
       window.speechSynthesis.cancel();
       
-      // Enhanced text processing for clearer pronunciation
       let enhancedText = text
-        // Add pauses for clarity
-        .replace(/\. /g, '.... ') // Longer pauses after sentences
-        .replace(/\! /g, '!... ') // Pause after exclamations
-        .replace(/\? /g, '?... ') // Pause after questions
-        .replace(/, /g, '.. ') // Clear pause after commas
-        .replace(/—/g, '.... ') // Long pause for em dashes
-        .replace(/: /g, ':.. ') // Pause after colons
-        // Special handling for anecdote introduction (1 second pause)
+        .replace(/\. /g, '.... ')
+        .replace(/\! /g, '!... ')
+        .replace(/\? /g, '?... ')
+        .replace(/, /g, '.. ')
+        .replace(/—/g, '.... ')
+        .replace(/: /g, ':.. ')
         .replace(/Actually, many people say:/gi, '............ Actually.. many people say:...')
-        // Emphasize key phrases
-        .replace(/believe me/gi, '... believe. me...') // Clear separation
-        .replace(/Actually(?!, many people say)/g, '... Actually,') // Clear intro (but not for anecdote)
-        .replace(/many people say(?!:)/gi, '... many people. say') // Clear articulation (not for anecdote intro)
-        // Break up complex words for clarity
+        .replace(/believe me/gi, '... believe. me...')
         .replace(/tremendous/gi, 'tre-mendous')
         .replace(/fantastic/gi, 'fan-tastic')
         .replace(/incredible/gi, 'in-credible')
         .replace(/spectacular/gi, 'spec-tacular')
         .replace(/billion/gi, 'bill-ion')
         .replace(/million/gi, 'mill-ion')
-        // Clear transitions
         .replace(/very very/gi, 'very. very')
         .replace(/and it\'s/gi, '... and it\'s')
         .replace(/because/gi, '... because');
       
       const utt = new SpeechSynthesisUtterance(enhancedText);
       
-      // MASCULINE voice settings - ABSOLUTELY ensure deep male voice
-      utt.rate = 0.85; // Slower for clarity
-      utt.pitch = 0.7; // MUCH LOWER pitch for definitely masculine voice
-      utt.volume = 1.0; // Full volume
+      utt.rate = 0.85;
+      utt.pitch = 0.7;
+      utt.volume = 1.0;
       utt.lang = 'en-US';
       
-      // Set voice
       const voice = await chooseVoice();
       if(voice) {
         utt.voice = voice;
         
-        // Fine-tune based on detected voice type
         if(voice.name.toLowerCase().includes('female') || 
            voice.name.toLowerCase().includes('woman') ||
            voice.name.toLowerCase().includes('girl')) {
-          // If somehow we got a female voice, make it as deep as possible
-          utt.pitch = 0.5; // VERY low pitch to masculinize
-          utt.rate = 0.75; // Slower
+          utt.pitch = 0.5;
+          utt.rate = 0.75;
           console.warn('⚠ Female voice detected, compensating with very low pitch');
         } else if(voice.name.toLowerCase().includes('alex')) {
           utt.rate = 0.9;
@@ -336,12 +230,10 @@
       
       if(onStart) utt.onstart = onStart;
       
-      // Error handling
       utt.onerror = (e) => {
         console.error('Speech error:', e);
       };
       
-      // Speak
       window.speechSynthesis.speak(utt);
     }
 
@@ -365,16 +257,14 @@
       const welcomeSpokenRef=useRef(false);
       const speechInitiatedRef=useRef(false);
 
-      /* scroll */
-      useEffect(()=>{chatRef.current?.scrollTo({top:chatRef.current.scrollHeight,behavior:'smooth'});},[messages]);
-
-      /* speak greeting once */
       useEffect(()=>{
-        // Guard against multiple executions
+        chatRef.current?.scrollTo({top:chatRef.current.scrollHeight,behavior:'smooth'});
+      },[messages]);
+
+      useEffect(()=>{
         if(speechInitiatedRef.current) return;
         speechInitiatedRef.current = true;
 
-        // Small delay to ensure speech synthesis is ready
         const speechTimer = setTimeout(() => {
           speak(welcome,()=>{welcomeSpokenRef.current=true;});
         }, 100);
@@ -397,21 +287,21 @@
       };
 
       const send=()=>{
-        const line=input.trim();if(!line)return;
+        const line=input.trim();
+        if(!line)return;
         
-        // Varied response selection with different probabilities
         const rand = Math.random();
         let botText;
         if(rand < 0.15) {
-          botText = interestingReply(); // 15%
+          botText = interestingReply();
         } else if(rand < 0.3) {
-          botText = ahaReply(); // 15%
+          botText = ahaReply();
         } else if(rand < 0.45) {
-          botText = hugeReply(); // 15%
+          botText = hugeReply();
         } else if(rand < 0.55) {
-          botText = confusedReply(); // 10%
+          botText = confusedReply();
         } else {
-          botText = normalReply(); // 45% - the main entertaining responses
+          botText = normalReply();
         }
         
         setMessages(p=>[...p,{role:'user',content:line},{role:'assistant',content:botText}]);
@@ -428,14 +318,13 @@
 
           <main id="chat-window" ref={chatRef} aria-live="polite">
             {messages.map((m,i)=>{
-              // Split message if it contains an anecdote
               if(m.role === 'assistant' && m.content.includes('Actually, many people say:')) {
                 const parts = m.content.split('Actually, many people say:');
                 return (
                   <div key={i} className="anecdote-group">
                     <div className={`bubble ${m.role}`}>{parts[0].trim()}</div>
-                    <div className={`bubble ${m.role}`} style={{marginTop:'0.75rem'}>
-                      Actually, many people say: {parts[1].trim()}
+                    <div className={`bubble ${m.role}`} style={{marginTop:'0.75rem', fontStyle:'italic'}}>
+                      {'Actually, many people say: ' + parts[1].trim()}
                     </div>
                   </div>
                 );
