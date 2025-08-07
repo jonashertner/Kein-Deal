@@ -92,7 +92,7 @@
     const adjectives=['tremendous','fantastic','incredible','huge','amazing','unbelievable','spectacular','world-class','phenomenal','remarkable','colossal','outstanding','stunning','groundbreaking','monumental'];
     const nouns=['deal','agreement','success','win','opportunity','plan','strategy','partnership','result','achievement'];
     const anecdotes=[
-        'Once beat Bobby Fischer in chess using nothing but a bass line; every move a walking bass, and he resigned when I resolved to a dominant seventh...',
+        'I once beat Bobby Fischer in chess using nothing but a bass line; every move a walking bass, and he resigned when I resolved to a dominant seventh...',
       'A friend of mine closed a deal so huge it\'s visible from space, and he doesn\'t even mention it at parties any more...',
       'Many people say this is huge, but that friend with a mountain named after him says it\'s just a hill compared to my deals...',
       'Think bigger, folks!',
@@ -168,8 +168,8 @@
 
     const greet         =()=>`Do I know you? ${pick(boasts)}`;
     const normalReply   =()=>`${pick(openings)} this is a ${pick(adjectives)} ${pick(nouns)}. A very, very ${pick(adjectives)} ${pick(nouns)}. And it's going to be ${pick(adjectives)}, because it's ${pick(adjectives)} and ${pick(adjectives)}. And you will absolutely love it, believe me. Actually, many people say: ${pick(anecdotes)}`;
-    const confusedReply =()=>`I don't understand your fake news question. ${pick(shortBrags)} ${pick(absurdQuestions)}`;
-    const interestingReply =()=>`That is so interesting, or maybe it is even a question, I don't know. Look, nothing is agreed until everything is agreed.`;
+    const confusedReply =()=>`I don't understand your fake news question. Look, nothing is agreed until everything is agreed. ${pick(shortBrags)} ${pick(absurdQuestions)}`;
+    const interestingReply =()=>`That is so interesting, or maybe it is even a question, I don't know. But let me give you some perspective: Nothing is agreed until everything is agreed.`;
     const ahaReply =()=>`Aha. Sure. Tell me more about it.`;
     const hugeReply =()=>`That's huge. Really huge.`;
 
