@@ -27,8 +27,8 @@
     h1{font-size:1.25rem;font-weight:600;text-align:center;margin-bottom:.5rem}
 
     /* avatar – keep proportions */
-    #avatar-container{text-align:center;max-height:200px;margin-bottom:.25rem}
-    #avatar{max-height:200px;max-width:100%;height:auto;width:auto}
+    #avatar-container{text-align:center;max-height:120px;margin-bottom:.25rem}
+    #avatar{max-height:100px;max-width:100%;height:auto;width:auto}
 
     /* chat */
     #chat-window{
@@ -392,7 +392,7 @@
 
       const send=()=>{
         const line=input.trim();if(!line)return;
-        const botText=Math.random()<0.33?confusedReply():normalReply();
+        const botText=Math.random()<0.1?confusedReply():normalReply(); // Reduced from 0.33 to 0.1 (10% chance)
         setMessages(p=>[...p,{role:'user',content:line},{role:'assistant',content:botText}]);
         setInput('');
         setTimeout(()=>speak(botText),300);
