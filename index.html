@@ -14,7 +14,7 @@
       --bubble-radius:12px;
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    body,button,input{font:16px/1.4 system-ui,Arial,sans-serif;color:#222}
+    body,button,input{font:16px/1.4 system-ui,Aktiv Grotesk,sans-serif;color:#222}
     body{background:#fff;}
 
     /* flex frame */
@@ -434,7 +434,7 @@
                 return (
                   <div key={i} className="anecdote-group">
                     <div className={`bubble ${m.role}`}>{parts[0].trim()}</div>
-                    <div className={`bubble ${m.role}`} style={{marginTop:'0.75rem', fontStyle:'italic'}}>
+                    <div className={`bubble ${m.role}`} style={{marginTop:'0.75rem'}>
                       Actually, many people say: {parts[1].trim()}
                     </div>
                   </div>
