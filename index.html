@@ -172,8 +172,8 @@
     const normalReply   =()=>`${pick(openings)} this is a ${pick(adjectives)} ${pick(nouns)}. A very, very ${pick(adjectives)} ${pick(nouns)}. And it's going to be ${pick(adjectives)}, because it's ${pick(adjectives)} and ${pick(adjectives)}. And you will absolutely love it, believe me. Actually, many people say: ${pick(anecdotes)}`;
     const confusedReply =()=>`I don't understand your question. ${pick(shortBrags)} ${pick(absurdQuestions)}`;
     const interestingReply =()=>`That is so interesting, or maybe it is even a question, I don't know.`;
-    const ahaReply =()=>`Aha. Sure.`;
-    const hugeReply =()=>`That's huge.`;
+    const ahaReply =()=>`Aha. Sure. Tell me more about it.`;
+    const hugeReply =()=>`That's huge. Really huge.`;
 
     /* ---------- SPEECH SYNTHESIS ---------- */
     const getVoicesAsync=()=>new Promise(res=>{
@@ -240,7 +240,7 @@
         .replace(/—/g, '.... ')
         .replace(/: /g, ':.. ')
         .replace(/Actually, many people say:/gi, '............ Actually.. many people say:...')
-        .replace(/believe me/gi, '... believe, me...')
+        .replace(/believe me/gi, '... believe me...')
         .replace(/tremendous/gi, 'tre-mendous')
         .replace(/fantastic/gi, 'fan-tastic')
         .replace(/incredible/gi, 'in-credible')
@@ -351,9 +351,9 @@
           botText = interestingReply();
         } else if(rand < 0.3) {
           botText = ahaReply();
-        } else if(rand < 0.45) {
+        } else if(rand < 0.25) {
           botText = hugeReply();
-        } else if(rand < 0.55) {
+        } else if(rand < 0.25) {
           botText = confusedReply();
         } else {
           botText = normalReply();
