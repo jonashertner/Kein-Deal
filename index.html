@@ -240,13 +240,13 @@
         .replace(/—/g, '.... ')
         .replace(/: /g, ':.. ')
         .replace(/Actually, many people say:/gi, '............ Actually.. many people say:...')
-        .replace(/believe me/gi, '... believe. me...')
+        .replace(/believe me/gi, '... believe, me...')
         .replace(/tremendous/gi, 'tre-mendous')
         .replace(/fantastic/gi, 'fan-tastic')
         .replace(/incredible/gi, 'in-credible')
         .replace(/spectacular/gi, 'spec-tacular')
-        .replace(/billion/gi, 'bill-ion')
-        .replace(/million/gi, 'mill-ion')
+        .replace(/billion/gi, 'billion')
+        .replace(/million/gi, 'million')
         .replace(/very very/gi, 'very. very')
         .replace(/and it\'s/gi, '... and it\'s')
         .replace(/because/gi, '... because');
@@ -379,8 +379,7 @@
                   <div key={i} className="anecdote-group">
                     <div className={`bubble ${m.role}`}>{parts[0].trim()}</div>
                     <div className={`bubble ${m.role}`} style={{marginTop:'0.75rem'}>
-                      {'Actually, many people say: ' + parts[1].trim()}
-                    </div>
+                      {`Actually, many people say: ${parts[1].trim()}`}                    </div>
                   </div>
                 );
               }
